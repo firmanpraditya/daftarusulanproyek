@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rapat Koordinasi PKT GKJW</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/20L5X/jJtJgA/E6J2A+7R7wJ6S2rN0xV8dF72G0A6B5+O+2F4D5+S5wB8fQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      height: 100vh;
+      overflow: hidden;
+    }
+    .presentation-container {
+      width: 100vw; height: 100vh; background: #fff; display: flex; flex-direction: column; overflow: hidden;
+    }
+    /* NAV */
+    .tab-navigation { display: flex; background: linear-gradient(135deg,#2c3e50 0%,#34495e 100%); }
+    .tab-btn { flex: 1; padding: 14px 10px; background: none; border: 0; color: #bdc3c7; cursor: pointer; transition: .25s; font-size: 14px; font-weight: 700; border-bottom: 3px solid transparent; }
+    .tab-btn:hover { color: #fff; background: rgba(255,255,255,.06); }
+    .tab-btn.active { color: #fff; background: rgba(255,255,255,.12); border-bottom-color: #3498db; }
+    /* TABS */
+    .tab-content { display: none; flex: 1; padding: 36px; overflow-y: auto; background: linear-gradient(135deg,#f8f9fa 0%,#e9ecef 100%); }
+    .tab-content.pdf-viewer { padding: 0; }
+    .tab-content.active { display: flex; flex-direction: column; }
+    .slide-header { text-align: center; margin-bottom: 24px; }
+    .slide-title { font-size: clamp(28px, 4vw, 44px); color: #2c3e50; font-weight: 800; letter-spacing: .3px; }
+    .slide-subtitle { font-size: clamp(14px, 2vw, 18px); color: #7f8c8d; margin-top: 6px; }
+    .hero {
+      position: relative; display: grid; grid-template-columns: 1.2fr .8fr; gap: 28px; align-items: stretch; min-height: 58vh;
+      background: linear-gradient(135deg,#eef2f7 0%, #e8eef7 100%);
+      border-radius: 18px; padding: 28px; box-shadow: 0 12px 28px rgba(0,0,0,.08);
+    }
+    @media (max-width: 1000px){ .hero{ grid-template-columns: 1fr; } }
+    .hero-left { display:flex; flex-direction:column; justify-content:center; gap:18px; }
+    .hero-kicker { display:inline-flex; align-items:center; gap:8px; background: rgba(52,152,219,.12); color:#2c3e50; border:1px dashed #3498db; padding:6px 10px; border-radius:999px; font-weight:700; font-size:13px; }
+    .hero-headline { font-size: clamp(30px, 5vw, 56px); line-height: 1.05; font-weight: 900; color:#1f2d3d; text-shadow: 0 3px 10px rgba(0,0,0,.06); }
+    .hero-desc { font-size: clamp(14px, 2.1vw, 18px); color:#425466; max-width: 720px; }
+    .badges { display:flex; flex-wrap:wrap; gap:10px; margin-top: 6px; }
+    .badge { display:inline-flex; align-items:center; gap:8px; padding:8px 12px; border-radius:12px; background:#fff; box-shadow:0 6px 18px rgba(0,0,0,.06); font-weight:600; color:#2c3e50; }
+    .badge .dot { width:10px; height:10px; border-radius:50%; background: #27ae60; box-shadow: 0 0 0 4px rgba(39,174,96,.15); }
+    .hero-stats { display:grid; grid-template-columns: repeat(3, minmax(140px,1fr)); gap:14px; margin-top: 6px; }
+    .stat-card { background:#fff; border-radius:14px; padding:14px; box-shadow: 0 10px 22px rgba(0,0,0,.06); display:flex; flex-direction:column; gap:6px; }
+    .stat-title { font-size:12px; color:#7f8c8d; text-transform:uppercase; letter-spacing:.6px; }
+    .stat-value { font-size:22px; font-weight:800; color:#2c3e50; }
+    .hero-right { position:relative; display:flex; align-items:center; justify-content:center; }
+    .logo-frame { position:relative; width:100%; max-width: 360px; aspect-ratio: 1/1; border-radius: 24px; overflow:hidden; }
+    .logo-frame::before { content:""; position:absolute; inset:-3px; background: conic-gradient(from 0deg, #3498db, #2980b9, #8e44ad, #e74c3c, #f39c12, #27ae60, #3498db); filter: blur(12px); animation: spin 6s linear infinite; }
+    .logo-core { position:absolute; inset:10px; background:#fff; border-radius:20px; display:flex; align-items:center; justify-content:center; font-size: clamp(42px, 7vw, 72px); font-weight:900; color:#2c3e50; box-shadow: inset 0 0 0 2px #eef2f7, 0 14px 30px rgba(0,0,0,.08); }
+    @keyframes spin { to { transform: rotate(360deg);} }
+    .agenda-box { margin-top: 8px; background: linear-gradient(135deg, #3498db, #2980b9); color:#fff; padding:18px; border-radius: 14px; box-shadow: 0 10px 25px rgba(52,152,219,.3); text-align:left; }
+    .agenda-title { font-size: 18px; font-weight:800; margin-bottom:6px; }
+    .agenda-row { display:flex; flex-wrap:wrap; gap:10px; }
+    .chip { display:inline-flex; align-items:center; gap:8px; background: rgba(255,255,255,.15); padding:8px 12px; border-radius: 999px; font-weight:600; }
+    /* PROCESS FLOW */
+    .process-flow { background:#fff; border-radius: 20px; padding: 28px; box-shadow: 0 10px 30px rgba(0,0,0,.1); margin: 14px 0; }
+    .flow-header { text-align:center; margin-bottom: 20px; }
+    .flow-header h3 { color:#2c3e50; font-size: 20px; }
+    .flow-steps { display:flex; align-items:stretch; justify-content:space-between; flex-wrap:wrap; gap:20px; }
+    .flow-step { background: linear-gradient(135deg, #ecf0f1, #bdc3c7); border-radius: 15px; padding: 20px; flex:1; min-width:230px; position:relative; transition: transform .25s; }
+    .flow-step:hover { transform: translateY(-6px); }
+    .highlight-step { background: linear-gradient(135deg, #f39c12, #e67e22)!important; color:#fff; transform: translateY(-2px); box-shadow: 0 10px 25px rgba(243,156,18,.4); }
+    .step-number { position:absolute; top:-14px; left: 18px; background:#3498db; color:#fff; width:30px; height:30px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:13px; box-shadow: 0 6px 14px rgba(52,152,219,.35); }
+    .highlight-step .step-number { background:#c0392b; }
+    /* Aksen visual baru untuk judul kartu */
+    .step-content h4 { 
+      color:#2c3e50; 
+      margin-bottom: 8px; 
+      font-size: 20px; /* Ukuran font lebih besar */
+      font-weight: 800; /* Lebih tebal */
+    }
+    .highlight-step .step-content h4 { color:#fff; }
+    .step-content ul { padding-left: 18px; }
+    .step-content li { margin: 6px 0; font-size: 14px; }
+    .highlight-text { background: rgba(255,255,255,.18); padding:6px 10px; border-radius: 10px; font-weight: 700; font-size: 13px; display:inline-block; margin-bottom: 6px; }
+    .flow-arrow { font-size: 28px; color:#3498db; font-weight: 800; align-self:center; }
+    @media (max-width: 1200px){ .flow-steps{ flex-direction:column; } .flow-arrow{ transform: rotate(90deg); align-self:center; } }
+    .date-chip { display:inline-flex; align-items:center; gap:8px; margin-top:8px; padding:6px 10px; border-radius:999px; font-size:12px; font-weight:700; }
+    .date-chip.blue { background:#eaf4ff; color:#1e6bb8; border:1px solid #cde4ff; }
+    .date-chip.orange { background:#fff2e6; color:#b05b0b; border:1px solid #ffd9b3; }
+    /* INFO BOXES */
+    .explanation-box { background: linear-gradient(135deg, #27ae60, #2ecc71); color:#fff; padding:20px; border-radius: 14px; margin: 12px 0; box-shadow:0 8px 20px rgba(46,204,113,.3); }
+    /* GUIDELINES / PROGRAM */
+    .guidelines-grid{ display:grid; grid-template-columns: repeat(auto-fit,minmax(300px,1fr)); gap: 18px; }
+    .guideline-card{ 
+        background:#fff; 
+        border-radius: 14px; 
+        padding: 24px; 
+        box-shadow: 0 10px 25px rgba(0,0,0,.08); 
+        border-left:5px solid;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        transition: transform .3s, box-shadow .3s;
+    }
+    .guideline-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 16px 36px rgba(0,0,0,.15);
+    }
+    .guideline-card h3{ 
+        color:#2c3e50; 
+        margin-bottom: 12px; 
+        font-size: 20px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-weight: 800;
+    }
+    .guideline-card h3 i {
+        font-size: 22px;
+        color: #3498db;
+    }
+    .guideline-card:nth-child(1) h3 i { color: #f39c12; }
+    .guideline-card:nth-child(2) h3 i { color: #e74c3c; }
+    .guideline-card:nth-child(3) h3 i { color: #1abc9c; }
+    .guideline-card:nth-child(4) h3 i { color: #9b59b6; }
+    .guideline-card:nth-child(5) h3 i { color: #2ecc71; }
+    .guideline-card:nth-child(6) h3 i { color: #e67e22; }
+    .guideline-card:nth-child(7) h3 i { color: #c0392b; }
+    .guideline-card:nth-child(8) h3 i { color: #34495e; }
+    .guideline-card:nth-child(9) h3 i { color: #2980b9; }
+
+    .guideline-card:nth-child(1) { border-left-color: #f39c12; }
+    .guideline-card:nth-child(2) { border-left-color: #e74c3c; }
+    .guideline-card:nth-child(3) { border-left-color: #1abc9c; }
+    .guideline-card:nth-child(4) { border-left-color: #9b59b6; }
+    .guideline-card:nth-child(5) { border-left-color: #2ecc71; }
+    .guideline-card:nth-child(6) { border-left-color: #e67e22; }
+    .guideline-card:nth-child(7) { border-left-color: #c0392b; }
+    .guideline-card:nth-child(8) { border-left-color: #34495e; }
+    .guideline-card:nth-child(9) { border-left-color: #2980b9; }
+
+    .program-grid{ display:grid; grid-template-columns: repeat(auto-fit, minmax(280px,1fr)); gap: 18px; }
+    .program-card{ background:#fff; border-radius: 14px; padding: 18px; box-shadow: 0 8px 20px rgba(0,0,0,.08); border-top: 4px solid; transition: transform .25s, box-shadow .25s; }
+    .program-card:nth-child(odd){ border-top-color:#e74c3c; } .program-card:nth-child(even){ border-top-color:#3498db; }
+    .program-card:hover{ transform: translateY(-6px); box-shadow:0 14px 32px rgba(0,0,0,.16); }
+    .program-card h3{ color:#2c3e50; margin-bottom: 10px; display:flex; align-items:center; gap: 10px; font-size: 18px; }
+    .program-card .icon{ width:40px; height:40px; background:linear-gradient(135deg,#3498db,#2980b9); color:#fff; border-radius:10px; display:flex; align-items:center; justify-content:center; font-weight:800; }
+    /* NEW: CTA PAGE */
+    .cta-section{ display:grid; grid-template-columns: 1fr .8fr; gap: 24px; align-items: stretch; }
+    @media (max-width: 1000px){ .cta-section{ grid-template-columns: 1fr; } }
+    .cta-hero{ background:linear-gradient(135deg,#5dade2,#5499c7); color:#fff; border-radius:18px; padding:28px; box-shadow:0 12px 28px rgba(52,152,219,.35); display:flex; flex-direction:column; justify-content:center; gap:14px; }
+    .cta-hero h2{ font-size: clamp(26px,4vw,40px); line-height:1.1; }
+    .cta-hero p{ font-size: clamp(14px,2vw,18px); opacity:.95; }
+    .cta-bullets{ display:grid; grid-template-columns: repeat(3,minmax(120px,1fr)); gap:12px; }
+    .cta-badge{ background: rgba(255,255,255,.18); border:1px solid rgba(255,255,255,.35); padding:10px 12px; border-radius:12px; font-weight:700; text-align:center; }
+    .cta-card{ background:#fff; border-radius:18px; padding:24px; box-shadow:0 12px 28px rgba(0,0,0,.12); display:flex; flex-direction:column; gap:14px; }
+    .cta-card label{ font-weight:800; color:#2c3e50; }
+    .cta-url{ width:100%; padding:12px 14px; border:2px dashed #a4c7ea; border-radius:12px; font-size:14px; background:#f8fbff; color:#1f2d3d; }
+    .cta-actions{ display:flex; gap:10px; flex-wrap:wrap; }
+    .btn{ appearance:none; border:0; border-radius:12px; padding:12px 16px; font-weight:800; cursor:pointer; transition:.2s; }
+    .btn.primary{ background:#2ecc71; color:#fff; box-shadow:0 10px 22px rgba(46,204,113,.35); }
+    .btn.primary:hover{ transform: translateY(-2px); }
+    .btn.ghost{ background:#eef5ff; color:#1e6bb8; border:1px solid #cde4ff; }
+    .qr { align-self:center; width: 160px; height: 160px; border-radius: 12px; background: repeating-linear-gradient(45deg,#000 0 6px,#fff 6px 12px); outline: 6px solid #fff; box-shadow: 0 8px 22px rgba(0,0,0,.15); }
+    /* REMBUG WARGA STYLING */
+    .rembug-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 20px;
+    }
+    .rembug-card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.1);
+      transition: transform .3s, box-shadow .3s;
+      border-top: 6px solid;
+    }
+    .rembug-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 18px 40px rgba(0,0,0,.15);
+    }
+    .rembug-card .card-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+    .rembug-card .card-header i {
+      font-size: 32px;
+      color: #3498db;
+    }
+    .rembug-card.umkm { border-top-color: #2ecc71; }
+    .rembug-card.umkm i { color: #2ecc71; }
+    .rembug-card.intergenerasi { border-top-color: #9b59b6; }
+    .rembug-card.intergenerasi i { color: #9b59b6; }
+    .rembug-card.upl { border-top-color: #e67e22; }
+    .rembug-card.upl i { color: #e67e22; }
+    .rembug-card.ibadah-wilayah { border-top-color: #e74c3c; }
+    .rembug-card.ibadah-wilayah i { color: #e74c3c; }
+    .rembug-card.ibadah-gereja { border-top-color: #1abc9c; }
+    .rembug-card.ibadah-gereja i { color: #1abc9c; }
+    .rembug-card.lain-lain { border-top-color: #5dade2; }
+    .rembug-card.lain-lain i { color: #5dade2; }
+    .rembug-card.placeholder {
+        border-top-color: #bdc3c7;
+        background: #f1f3f5;
+        text-align: center;
+    }
+    .rembug-card.placeholder .card-header i { color: #bdc3c7; }
+    .rembug-card h3 {
+      font-size: 22px;
+      color: #2c3e50;
+      font-weight: 800;
+    }
+    .rembug-card ul {
+      list-style-type: none;
+      padding-left: 0;
+    }
+    .rembug-card li {
+      font-size: 15px;
+      color: #444;
+      line-height: 1.6;
+      margin-bottom: 12px;
+      position: relative;
+      padding-left: 28px;
+    }
+    .rembug-card li::before {
+      content: '•';
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: #7f8c8d;
+      font-weight: 900;
+      font-size: 1.2em;
+    }
+    .rembug-card.umkm li::before { color: #2ecc71; }
+    .rembug-card.intergenerasi li::before { color: #9b59b6; }
+    .rembug-card.upl li::before { color: #e67e22; }
+    .rembug-card.ibadah-wilayah li::before { color: #e74c3c; }
+    .rembug-card.ibadah-gereja li::before { color: #1abc9c; }
+    .rembug-card.lain-lain li::before { color: #5dade2; }
+    /* UTIL */
+    .responsive-text { font-size: clamp(.9rem, 2vw, 1.1rem); line-height: 1.6; }
+  </style>
+</head>
+<body>
+  <div class="presentation-container">
+    <div class="tab-navigation">
+      <button class="tab-btn active" onclick="showTab(0)">Pembukaan</button>
+      <button class="tab-btn" onclick="showTab(1)">Proses Kerja</button>
+      <button class="tab-btn" onclick="showTab(2)">Panduan PKT</button>
+      <button class="tab-btn" onclick="showTab(3)">Program MA</button>
+      <button class="tab-btn" onclick="showTab(4)">Program MD</button>
+      <button class="tab-btn" onclick="showTab(5)">Rembug Warga</button>
+      <button class="tab-btn" onclick="showTab(6)">Call to Action</button>
+      <button class="tab-btn" onclick="showTab(7)">PPJM</button>
+    </div>
+    <div class="tab-content active">
+      <div class="slide-header">
+        <h1 class="slide-title">Rapat Koordinasi Penyusunan <br>Daftar Usulan Proyek GKJW Mulyosari tahun 2026</h1>
+        <p class="slide-subtitle">PHMJ • Komperlitbang • Badan Pembantu MJ</p>
+      </div>
+      <section class="hero">
+        <div class="hero-left">
+          <span class="hero-kicker">RAPAT KOORDINASI • GKJW</span>
+          <h2 class="hero-headline">Jemari..Yes..Yes. Menata Usulan Pembangunan & Penunjang 2026</h2>
+          <!--<p class="hero-desc">Pembukaan ini dirancang sebagai cover: padat, informatif, dan visual. Gunakan layar penuh untuk menyorot tujuan rapat dan ekspektasi hasil: <em>daftar usulan proyek</em> yang terukur, relevan, dan siap disahkan.</p>-->
+          <div class="badges">
+            <div class="badge"><span class="dot"></span> Minggu, 31 Agustus 2025</div>
+            <div class="badge">Lokasi: Gedung Gereja</div>
+            <div class="badge">Fokus: Usulan Proyek 2026</div>
+          </div>
+          <!--
+          <div class="hero-stats">
+            <div class="stat-card">
+              <div class="stat-title">Target</div>
+              <div class="stat-value">100% Draft PKT</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-title">Output</div>
+              <div class="stat-value">Daftar Usulan Tervalidasi</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-title">Arah</div>
+              <div class="stat-value">Intergenerasi & Dampak Nyata</div>
+            </div>
+          </div>
+        -->
+          <div class="agenda-box">
+            <div class="agenda-title">Agenda Utama</div>
+            <div class="agenda-row">
+              <span class="chip">Sosialisasi pengisian DUP 2026</span>
+              <span class="chip">Pengumpulan Usulan per Badan Pembantu</span>
+              <span class="chip">Kompilasi & Review Awal</span>
+            </div>
+          </div>
+        </div>
+        <div class="hero-right">
+          <div class="logo-frame">
+            <div class="logo-core">
+                <img src="https://i.ibb.co.com/GfDGLkwc/Download-Logo-GKJW-Vektor-AI.jpg" alt="Logo GKJW" style="width: 100%; height: auto;">
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+    <div class="tab-content">
+      <div class="slide-header">
+        <h2 class="slide-title">Proses Kerja Penyusunan PKT</h2>
+      </div>
+      <div class="process-flow">
+        <div class="flow-header">
+          <h3>🔄 Alur Penyusunan Program Kerja Tahunan (PKT) GKJW</h3>
+        </div>
+        <div class="flow-steps">
+          <div class="flow-step">
+            <div class="step-number">1</div>
+            <div class="step-content">
+              <h4>Penetapan anggaran operasional</h4>
+              <span class="date-chip blue">s/d 12 Okt 2025</span>
+              <ul>
+                <li>Anggaran Belanja & Penerimaan Rutin</li>
+                <li>Dana Persekutuan MD dan MA</li>
+                <li>Subsidi & Sumbangan</li>
+                <li>Program Rutin Gereja</li>
+              </ul>
+            </div>
+          </div>
+          <div class="flow-arrow">➤</div>
+          <div class="flow-step highlight-step">
+            <div class="step-number">2</div>
+            <div class="step-content">
+              <h4>DAFTAR USULAN PROYEK</h4>
+              <span class="date-chip orange">Pengumpulan: s/d 30 Sep 2025</span>
+              <p class="highlight-text">FOKUS UTAMA BADAN PEMBANTU</p>
+              <ul>
+                <li>Proyek Pembangunan (P)</li>
+                <li>Proyek Penunjang/Rutin (R)</li>
+                <li>Dari MJ, MD, dan MA</li>
+              </ul>
+            </div>
+          </div>
+          <div class="flow-arrow">➤</div>
+          <div class="flow-step">
+            <div class="step-number">3</div>
+            <div class="step-content">
+              <h4>Kompilasi & Review</h4>
+              <span class="date-chip blue">Periode: 19–26 Okt 2025</span>
+              <ul>
+                <li>Integrasi semua komponen</li>
+                <li>Review dan penyesuaian</li>
+                <li>Finalisasi anggaran</li>
+              </ul>
+            </div>
+          </div>
+          <div class="flow-arrow">➤</div>
+          <div class="flow-step">
+            <div class="step-number">4</div>
+            <div class="step-content">
+              <h4>PKT Final</h4>
+              <span class="date-chip blue">Pengesahan: 23 Nov 2025</span>
+              <ul>
+                <li>Program Kerja Lengkap</li>
+                <li>Siap untuk pengesahan</li>
+                <li>Implementasi 2026</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="explanation-box">
+        <h3>🎯 Prinsip Penyusunan Proyek yang Efektif</h3>
+        <div class="responsive-text"><strong>1. Berbasis Kebutuhan Nyata:</strong> Jangan hanya copy-paste program sebelumnya. Pahami kebutuhan aktual warga jemaat GKJW Mulyosari dan susun program yang berdampak langsung bagi kehidupan bergereja mereka.</div>
+      </div>
+      <div class="explanation-box" style="background: linear-gradient(135deg,#e67e22,#d35400);">
+        <h3>👥 Program Kolaboratif Intergenerasi</h3>
+        <div class="responsive-text"><strong>2. Pendekatan Terintegrasi:</strong> Hasil penelitian menunjukkan warga jemaat mengapresiasi kegiatan pelayanan yang melibatkan seluruh keluarga. Susun program pembangunan yang menggabungkan pelayanan untuk anak, remaja, pemuda, wanita, dan warga Adi Yuswa (lansia).</div>
+      </div>
+    </div>
+    <div class="tab-content">
+      <div class="slide-header"><h2 class="slide-title">Panduan Penyusunan PKT</h2></div>
+      <div class="guidelines-grid">
+        <div class="guideline-card">
+          <h3><i class="fas fa-hashtag"></i> 1. Nomor Proyek</h3>
+          <div class="responsive-text">
+            <p><strong>Pembangunan:</strong> P + Kode Badan + No Urut + Tahun</p>
+            <p><strong>Rutin/Penunjang:</strong> R + Kode Badan + No Urut + Tahun</p>
+            <em>Contoh: PA205-26, RB302-26</em>
+          </div>
+        </div>
+        <div class="guideline-card">
+          <h3><i class="fas fa-file-signature"></i> 2. Nama Proyek</h3>
+          <div class="responsive-text">Singkat, jelas, dan menggambarkan kegiatan. Pembangunan diawali kata kerja: Peningkatan, Pemberdayaan, Optimalisasi, dll.</div>
+        </div>
+        <div class="guideline-card">
+          <h3><i class="fas fa-scroll"></i> 3. Acuan</h3>
+          <div class="responsive-text">Landasan pelaksanaan: PPJP, PPJM MD ST1, PKT BPMA, Keputusan Sidang MD/MA, Keputusan PHMD/Raker BPMD.</div>
+        </div>
+        <div class="guideline-card">
+          <h3><i class="fas fa-bullseye"></i> 4. Tujuan</h3>
+          <div class="responsive-text">Pernyataan kualitatif pencapaian yang diinginkan. Menggunakan kata kerja, relevan dengan indikator ketercapaian.</div>
+        </div>
+        <div class="guideline-card">
+          <h3><i class="fas fa-users"></i> 5. Sasaran Kuantitas</h3>
+          <div class="responsive-text">Personil sasaran aktivitas. Ditulis detail, dapat dihitung/diukur untuk memudahkan penyusunan anggaran.</div>
+        </div>
+        <div class="guideline-card">
+          <h3><i class="fas fa-calendar-check"></i> 6. Bentuk Kegiatan</h3>
+          <div class="responsive-text">Workshop, seminar, pelatihan, monitoring, sosialisasi, dll. Tulis lengkap untuk memudahkan pelaksanaan.</div>
+        </div>
+        <div class="guideline-card">
+          <h3><i class="fas fa-map-marked-alt"></i> 7. Waktu & Tempat</h3>
+          <div class="responsive-text">Waktu: Hari, tanggal, bulan, tahun (minimal bulan & tahun)<br>Tempat: Lokasi lengkap untuk memudahkan penjadwalan.</div>
+        </div>
+        <div class="guideline-card">
+          <h3><i class="fas fa-money-bill-wave"></i> 8. Biaya</h3>
+          <div class="responsive-text">Rinci komponen biaya (konsumsi, transport, dll). Sumber: Dana A (Kas MD), B (Krakalan), C (Donatur/Bantuan).</div>
+        </div>
+        <div class="guideline-card">
+          <h3><i class="fas fa-chart-line"></i> 9. Indikator Keberhasilan</h3>
+          <div class="responsive-text">Memenuhi kriteria SMART: Spesific, Measureable, Achievable, Relevant, Time-bound.</div>
+        </div>
+      </div>
+    </div>
+    <div class="tab-content">
+      <div class="slide-header">
+        <h2 class="slide-title">Program Pembangunan Majelis Agung</h2>
+      </div>
+      <div class="program-grid" style="text-align: center;">
+        <div class="program-card" style="border-top-color: #f39c12; flex-basis: 100%;">
+          <h3><i class="fas fa-tasks"></i> Pemilihan Program Prioritas</h3>
+          <p class="responsive-text" style="color:#555;">Daftar program ini akan dipilah lebih lanjut oleh **PHMJ, Komperlitbang, dan KP2** untuk menentukan mana yang paling mendesak dan relevan untuk dilaksanakan di GKJW Mulyosari.</p>
+        </div>
+      </div>
+    </div>
+    <div class="tab-content">
+      <div class="slide-header">
+        <h2 class="slide-title">Program Pembangunan Majelis Daerah</h2>
+      </div>
+      <div class="program-grid" style="text-align: center;">
+        <div class="program-card" style="border-top-color: #3498db; flex-basis: 100%;">
+          <h3><i class="fas fa-spinner fa-pulse"></i> Data Belum Tersedia</h3>
+          <p class="responsive-text" style="color:#555;">Akan diupdate setelah sidang Majelis Daerah September 2025.</p>
+        </div>
+      </div>
+    </div>
+    <div class="tab-content">
+      <div class="slide-header"><h2 class="slide-title">Hasil Rembug Warga GKJW Mulyosari</h2></div>
+      <div class="rembug-grid">
+        <div class="rembug-card ibadah-wilayah">
+          <div class="card-header">
+            <i class="fas fa-cross"></i>
+            <h3>Ibadah Wilayah</h3>
+          </div>
+          <ul>
+            <li>Ada pro kontra mengenai **konsumsi dan kebaktian** yang diadakan di gereja.</li>
+            <li>Diusulkan agar **tuan rumah hanya menyediakan air minum**, sementara warga yang datang membawa makanan sendiri, untuk meringankan beban.</li>
+            <li>Jadwal tempat dan pelayan firman (PF) harus **jelas dan di-share** di awal tahun, agar warga dapat mempersiapkan diri (keuangan dan waktu).</li>
+            <li>Jika ada yang tidak bisa ketempatan, bisa **bertukar jadwal** atau dirembug bersama, agar semua jelas.</li>
+            <li>Wilayah 3 mengalami masalah karena jumlah jemaat makin sedikit, sehingga setiap KK harus melayani hingga 3-4 kali dalam setahun.</li>
+          </ul>
+        </div>
+        <div class="rembug-card ibadah-gereja">
+            <div class="card-header">
+                <i class="fas fa-church"></i>
+                <h3>Ibadah di Gereja</h3>
+            </div>
+            <ul>
+                <li>**Teks pujian** harus ditampilkan dalam satu bait utuh atau potongan besar, tidak terpotong-potong, agar warga bisa menghayati liriknya.</li>
+                <li>**Sound system** perlu dicek dan disiapkan dengan baik sebelum ibadah dimulai agar tidak mengganggu.</li>
+                <li>**Pemusik dan pandu puji** diharapkan mempersiapkan diri dengan baik dan mengenakan pakaian rapi (tidak memakai jeans) dengan sikap yang sopan.</li>
+            </ul>
+        </div>
+        <div class="rembug-card upl">
+          <div class="card-header">
+            <i class="fas fa-piggy-bank"></i>
+            <h3>UPL</h3>
+          </div>
+          <ul>
+            <li>Iuran diusulkan per kepala atau per keluarga? Sebagian besar wanita **keberatan jika iuran menjadi per kepala**, lebih setuju jika nominal naik tetapi hitungannya per keluarga.</li>
+            <li>Pertimbangan khusus diberikan pada keluarga yang pencari nafkah satu atau pensiunan.</li>
+            <li>Diusulkan agar iuran untuk **anak di bawah 21 tahun tidak ditarik**.</li>
+            <li>Perlu sosialisasi yang jelas mengenai pentingnya UPL, alasan perubahan, dan peruntukan dananya, termasuk masuk sebagai dana khusus di PKT Jemaat.</li>
+          </ul>
+        </div>
+        <div class="rembug-card umkm">
+          <div class="card-header">
+            <i class="fas fa-handshake"></i>
+            <h3>UMKM</h3>
+          </div>
+          <ul>
+            <li>Penjualan UMKM sering **bertabrakan dengan bazar** penggalangan dana.</li>
+            <li>Adanya kekhawatiran terkait potensi **pajak** untuk bisnis makanan dan minuman kecil.</li>
+            <li>Diusulkan adanya **wadah khusus** dengan bagian **marketing** (mencari acara di luar) dan **produksi** (menghubungkan UMKM warga).</li>
+            <li>Pokja PEW perlu mengadakan **sosialisasi dan pendataan UMKM** yang jelas, jika perlu dengan cara mendatangi warga satu per satu.</li>
+          </ul>
+        </div>
+        <div class="rembug-card intergenerasi">
+          <div class="card-header">
+            <i class="fas fa-people-arrows"></i>
+            <h3>Intergenerasi</h3>
+          </div>
+          <ul>
+            <li>Diusulkan adanya **ibadah yang melibatkan seluruh anggota keluarga** secara bersama-sama.</li>
+            <li>GKJW Mulyosari diharapkan bisa menjadi **gereja yang berciri khas keluarga** yang kuat.</li>
+            <li>Masukan untuk mengundang **pembicara dari luar** dalam kegiatan ibadah atau seminar.</li>
+            <li>Saran agar saat ibadah, warga yang tua didahulukan untuk duduk di tempat yang nyaman (di bawah).</li>
+          </ul>
+        </div>
+        <div class="rembug-card lain-lain">
+            <div class="card-header">
+                <i class="fas fa-ellipsis-h"></i>
+                <h3>Lain-Lain</h3>
+            </div>
+            <ul>
+                <li>Diusulkan untuk kembali menggunakan **kode warga untuk persembahan** agar nama tidak tertulis tapi tetap bisa dikontrol.</li>
+                <li>Aturan **Dilarang Merokok** di seluruh lingkungan gereja dan eben harus benar-benar ditaati untuk menjaga kesehatan warga lain, terutama anak-anak.</li>
+            </ul>
+        </div>
+        <div class="rembug-card placeholder">
+          <div class="card-header">
+            <i class="fas fa-child"></i>
+            <h3>Rembug Warga Anak-anak</h3>
+          </div>
+          <p style="color: #666; margin-top: 10px;"><em>Data belum tersedia. Akan diupdate setelah rembug warga dilaksanakan.</em></p>
+        </div>
+      </div>
+    </div>
+    <div class="tab-content">
+      <div class="slide-header"><h2 class="slide-title">Call to Action</h2><p class="slide-subtitle">Masukkan usulan proyek Anda sekarang</p></div>
+      <section class="cta-section">
+        <div class="cta-hero">
+          <h2>Wujudkan Dampak Lewat Usulan yang Tepat</h2>
+          <p>Silakan isi formulir Google Forms untuk mengajukan <strong>Proyek Pembangunan (P)</strong> atau <strong>Proyek Penunjang/Rutin (R)</strong>. Mohon ikuti panduan penamaan, tujuan, indikator, dan komponen biaya agar proses review berjalan cepat.</p>
+          <div class="cta-bullets">
+            <div class="cta-badge">Tepat Waktu</div>
+            <div class="cta-badge">Tepat Guna</div>
+            <div class="cta-badge">Tepat Sasaran</div>
+          </div>
+        </div>
+        <div class="cta-card">
+          <label for="cta-url">URL Google Forms:</label>
+          <input id="cta-url" class="cta-url" type="text" value="https://forms.gle/g7ym9otosZzj3cpy8" readonly />
+          <div class="cta-actions">
+            <a id="ctaLink" class="btn primary" href="https://forms.gle/g7ym9otosZzj3cpy8" target="_blank" rel="noopener">Buka Formulir Usulan</a>
+            <button class="btn ghost" onclick="copyCtaUrl()">Salin Tautan</button>
+          </div>
+          <img src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=https://forms.gle/g7ym9otosZzj3cpy8" alt="QR Code" class="qr" />
+        </div>
+      </section>
+    </div>
+    <div class="tab-content pdf-viewer">
+        <div class="slide-header" style="padding: 36px 36px 0;">
+            <h2 class="slide-title">Tema PPJM GKJW 2026</h2>
+            <p class="slide-subtitle">Tahun Ekologi dan Kependudukan</p>
+            <p style="font-size: 14px; color: #666; font-style: italic; margin-top: 10px;">
+      Tahun ini adalah tahun penguatan kesadaran ekologi dan kependudukan. Diprediksi pada tahun ini jumlah penduduk dunia bertambah 1
+miliar dari 12 tahun sebelumnya serta
+persiapan yang lebih matang menuju
+sistem kemasyarakatan era baru
+(tahun tengah-tengah menuju 2045
+Indonesia Maju, 2050 masyarakat
+internasional).
+
+Disadari bahwa perubahan sistem
+kependudukan akan berpengaruh
+besar pada kondisi ekologi. Karena itu
+tahun kependudukan juga perlu
+diimbangi dengan kesadaran ekologis
+yang muncul sebagai akibatnya.
+    </p>
+        </div>
+      <iframe src="https://drive.google.com/file/d/1Gwp_1IKxUOUiP54SwxlOjj98QxiSEwDQ/preview"
+              style="width:100%; height:100%; border:none;"></iframe>
+    </div>
+  </div>
+  <script>
+    function showTab(tabIndex){
+      const tabs = document.querySelectorAll('.tab-content');
+      const btns = document.querySelectorAll('.tab-btn');
+      tabs.forEach(t => t.classList.remove('active'));
+      btns.forEach(b => b.classList.remove('active'));
+      
+      // Menambahkan logika untuk iframe
+      if (tabs[tabIndex]) {
+          const isPdfTab = tabs[tabIndex].classList.contains('pdf-viewer');
+          tabs.forEach(t => t.style.padding = '36px');
+          if (isPdfTab) {
+            tabs[tabIndex].style.padding = '0';
+          }
+          tabs[tabIndex].classList.add('active');
+          btns[tabIndex].classList.add('active');
+      }
+    }
+    document.addEventListener('DOMContentLoaded',() => showTab(0));
+    // CTA helpers
+    function copyCtaUrl(){
+      const input = document.getElementById('cta-url');
+      input.select(); input.setSelectionRange(0, 99999);
+      document.execCommand('copy');
+      const btn = event.currentTarget; const old = btn.textContent;
+      btn.textContent = 'Tersalin ✓';
+      setTimeout(()=> btn.textContent = old, 1200);
+      // sinkronkan tombol open
+      const link = document.getElementById('ctaLink');
+      link.href = input.value;
+    }
+  </script>
+</body>
+</html>
