@@ -6,6 +6,12 @@
   <title>Rapat Koordinasi PKT GKJW</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/20L5X/jJtJgA/E6J2A+7R7wJ6S2rN0xV8dF72G0A6B5+O+2F4D5+S5wB8fQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <style>
+    :root {
+      --main-bg: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+      --dark-bg: linear-gradient(135deg,#2c3e50 0%,#34495e 100%);
+      --accent-color: #3498db;
+      --card-shadow: 0 10px 25px rgba(0,0,0,.08);
+    }
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -17,23 +23,56 @@
       width: 100vw; height: 100vh; background: #fff; display: flex; flex-direction: column; overflow: hidden;
     }
     /* NAV */
-    .tab-navigation { display: flex; background: linear-gradient(135deg,#2c3e50 0%,#34495e 100%); }
-    .tab-btn { flex: 1; padding: 14px 10px; background: none; border: 0; color: #bdc3c7; cursor: pointer; transition: .25s; font-size: 14px; font-weight: 700; border-bottom: 3px solid transparent; }
+    .tab-navigation { 
+      display: flex; 
+      background: var(--dark-bg);
+      overflow-x: auto;
+      white-space: nowrap;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none; /* Firefox */
+      -ms-overflow-style: none; /* Internet Explorer 10+ */
+    }
+    .tab-navigation::-webkit-scrollbar { display: none; }
+    .tab-btn { 
+      flex-shrink: 0; 
+      padding: 14px 10px; 
+      background: none; 
+      border: 0; 
+      color: #bdc3c7; 
+      cursor: pointer; 
+      transition: .25s; 
+      font-size: 14px; 
+      font-weight: 700; 
+      border-bottom: 3px solid transparent; 
+    }
     .tab-btn:hover { color: #fff; background: rgba(255,255,255,.06); }
-    .tab-btn.active { color: #fff; background: rgba(255,255,255,.12); border-bottom-color: #3498db; }
+    .tab-btn.active { color: #fff; background: rgba(255,255,255,.12); border-bottom-color: var(--accent-color); }
     /* TABS */
-    .tab-content { display: none; flex: 1; padding: 36px; overflow-y: auto; background: linear-gradient(135deg,#f8f9fa 0%,#e9ecef 100%); }
+    .tab-content { display: none; flex: 1; padding: 36px; overflow-y: auto; background: var(--main-bg); }
     .tab-content.pdf-viewer { padding: 0; }
     .tab-content.active { display: flex; flex-direction: column; }
     .slide-header { text-align: center; margin-bottom: 24px; }
     .slide-title { font-size: clamp(28px, 4vw, 44px); color: #2c3e50; font-weight: 800; letter-spacing: .3px; }
     .slide-subtitle { font-size: clamp(14px, 2vw, 18px); color: #7f8c8d; margin-top: 6px; }
     .hero {
-      position: relative; display: grid; grid-template-columns: 1.2fr .8fr; gap: 28px; align-items: stretch; min-height: 58vh;
+      position: relative; 
+      display: grid; 
+      grid-template-columns: 1.2fr .8fr; 
+      gap: 28px; 
+      align-items: stretch; 
+      min-height: 58vh;
       background: linear-gradient(135deg,#eef2f7 0%, #e8eef7 100%);
-      border-radius: 18px; padding: 28px; box-shadow: 0 12px 28px rgba(0,0,0,.08);
+      border-radius: 18px; 
+      padding: 28px; 
+      box-shadow: 0 12px 28px rgba(0,0,0,.08);
     }
-    @media (max-width: 1000px){ .hero{ grid-template-columns: 1fr; } }
+    @media (max-width: 1000px){ 
+      .hero{ 
+        grid-template-columns: 1fr; 
+        text-align: left;
+      } 
+      .slide-header { text-align: left; }
+    }
     .hero-left { display:flex; flex-direction:column; justify-content:center; gap:18px; }
     .hero-kicker { display:inline-flex; align-items:center; gap:8px; background: rgba(52,152,219,.12); color:#2c3e50; border:1px dashed #3498db; padding:6px 10px; border-radius:999px; font-weight:700; font-size:13px; }
     .hero-headline { font-size: clamp(30px, 5vw, 56px); line-height: 1.05; font-weight: 900; color:#1f2d3d; text-shadow: 0 3px 10px rgba(0,0,0,.06); }
@@ -68,15 +107,19 @@
     .step-content h4 { 
       color:#2c3e50; 
       margin-bottom: 8px; 
-      font-size: 20px; /* Ukuran font lebih besar */
-      font-weight: 800; /* Lebih tebal */
+      font-size: 20px;
+      font-weight: 800;
     }
     .highlight-step .step-content h4 { color:#fff; }
     .step-content ul { padding-left: 18px; }
     .step-content li { margin: 6px 0; font-size: 14px; }
     .highlight-text { background: rgba(255,255,255,.18); padding:6px 10px; border-radius: 10px; font-weight: 700; font-size: 13px; display:inline-block; margin-bottom: 6px; }
     .flow-arrow { font-size: 28px; color:#3498db; font-weight: 800; align-self:center; }
-    @media (max-width: 1200px){ .flow-steps{ flex-direction:column; } .flow-arrow{ transform: rotate(90deg); align-self:center; } }
+    @media (max-width: 1200px){ 
+      .flow-steps{ flex-direction:column; } 
+      .flow-arrow{ transform: rotate(90deg); align-self:center; } 
+      .flow-header { text-align: left; }
+    }
     .date-chip { display:inline-flex; align-items:center; gap:8px; margin-top:8px; padding:6px 10px; border-radius:999px; font-size:12px; font-weight:700; }
     .date-chip.blue { background:#eaf4ff; color:#1e6bb8; border:1px solid #cde4ff; }
     .date-chip.orange { background:#fff2e6; color:#b05b0b; border:1px solid #ffd9b3; }
@@ -88,7 +131,7 @@
         background:#fff; 
         border-radius: 14px; 
         padding: 24px; 
-        box-shadow: 0 10px 25px rgba(0,0,0,.08); 
+        box-shadow: var(--card-shadow); 
         border-left:5px solid;
         display: flex;
         flex-direction: column;
@@ -108,10 +151,7 @@
         gap: 12px;
         font-weight: 800;
     }
-    .guideline-card h3 i {
-        font-size: 22px;
-        color: #3498db;
-    }
+    .guideline-card h3 i { font-size: 22px; color: var(--accent-color); }
     .guideline-card:nth-child(1) h3 i { color: #f39c12; }
     .guideline-card:nth-child(2) h3 i { color: #e74c3c; }
     .guideline-card:nth-child(3) h3 i { color: #1abc9c; }
@@ -121,7 +161,6 @@
     .guideline-card:nth-child(7) h3 i { color: #c0392b; }
     .guideline-card:nth-child(8) h3 i { color: #34495e; }
     .guideline-card:nth-child(9) h3 i { color: #2980b9; }
-
     .guideline-card:nth-child(1) { border-left-color: #f39c12; }
     .guideline-card:nth-child(2) { border-left-color: #e74c3c; }
     .guideline-card:nth-child(3) { border-left-color: #1abc9c; }
@@ -235,6 +274,27 @@
     .rembug-card.lain-lain li::before { color: #5dade2; }
     /* UTIL */
     .responsive-text { font-size: clamp(.9rem, 2vw, 1.1rem); line-height: 1.6; }
+
+    /* MOBILE-SPECIFIC STYLES */
+    @media (max-width: 768px) {
+        .tab-btn { font-size: 12px; padding: 12px 8px; }
+        .slide-title { font-size: 24px; }
+        .slide-subtitle { font-size: 14px; }
+        .hero-headline { font-size: 28px; text-align: left; }
+        .hero-desc { font-size: 14px; }
+        .badges { flex-direction: column; align-items: flex-start; }
+        .badge { display: flex; align-items: center; width: 100%; }
+        .hero-stats { grid-template-columns: 1fr; }
+        .hero-right { order: -1; margin-bottom: 20px; }
+        .logo-frame { max-width: 280px; }
+        .flow-steps { flex-direction: column; }
+        .flow-arrow { transform: rotate(90deg); align-self: center; }
+        .flow-header { text-align: left; }
+        .guidelines-grid, .program-grid, .rembug-grid { grid-template-columns: 1fr; }
+        .cta-section { grid-template-columns: 1fr; }
+        .cta-hero { text-align: center; }
+        .cta-bullets { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>
@@ -258,28 +318,11 @@
         <div class="hero-left">
           <span class="hero-kicker">RAPAT KOORDINASI • GKJW</span>
           <h2 class="hero-headline">Jemari..Yes..Yes. Menata Usulan Pembangunan & Penunjang 2026</h2>
-          <!--<p class="hero-desc">Pembukaan ini dirancang sebagai cover: padat, informatif, dan visual. Gunakan layar penuh untuk menyorot tujuan rapat dan ekspektasi hasil: <em>daftar usulan proyek</em> yang terukur, relevan, dan siap disahkan.</p>-->
           <div class="badges">
             <div class="badge"><span class="dot"></span> Minggu, 31 Agustus 2025</div>
             <div class="badge">Lokasi: Gedung Gereja</div>
             <div class="badge">Fokus: Usulan Proyek 2026</div>
           </div>
-          <!--
-          <div class="hero-stats">
-            <div class="stat-card">
-              <div class="stat-title">Target</div>
-              <div class="stat-value">100% Draft PKT</div>
-            </div>
-            <div class="stat-card">
-              <div class="stat-title">Output</div>
-              <div class="stat-value">Daftar Usulan Tervalidasi</div>
-            </div>
-            <div class="stat-card">
-              <div class="stat-title">Arah</div>
-              <div class="stat-value">Intergenerasi & Dampak Nyata</div>
-            </div>
-          </div>
-        -->
           <div class="agenda-box">
             <div class="agenda-title">Agenda Utama</div>
             <div class="agenda-row">
@@ -555,50 +598,3 @@ sistem kemasyarakatan era baru
 (tahun tengah-tengah menuju 2045
 Indonesia Maju, 2050 masyarakat
 internasional).
-
-Disadari bahwa perubahan sistem
-kependudukan akan berpengaruh
-besar pada kondisi ekologi. Karena itu
-tahun kependudukan juga perlu
-diimbangi dengan kesadaran ekologis
-yang muncul sebagai akibatnya.
-    </p>
-        </div>
-      <iframe src="https://drive.google.com/file/d/1Gwp_1IKxUOUiP54SwxlOjj98QxiSEwDQ/preview"
-              style="width:100%; height:100%; border:none;"></iframe>
-    </div>
-  </div>
-  <script>
-    function showTab(tabIndex){
-      const tabs = document.querySelectorAll('.tab-content');
-      const btns = document.querySelectorAll('.tab-btn');
-      tabs.forEach(t => t.classList.remove('active'));
-      btns.forEach(b => b.classList.remove('active'));
-      
-      // Menambahkan logika untuk iframe
-      if (tabs[tabIndex]) {
-          const isPdfTab = tabs[tabIndex].classList.contains('pdf-viewer');
-          tabs.forEach(t => t.style.padding = '36px');
-          if (isPdfTab) {
-            tabs[tabIndex].style.padding = '0';
-          }
-          tabs[tabIndex].classList.add('active');
-          btns[tabIndex].classList.add('active');
-      }
-    }
-    document.addEventListener('DOMContentLoaded',() => showTab(0));
-    // CTA helpers
-    function copyCtaUrl(){
-      const input = document.getElementById('cta-url');
-      input.select(); input.setSelectionRange(0, 99999);
-      document.execCommand('copy');
-      const btn = event.currentTarget; const old = btn.textContent;
-      btn.textContent = 'Tersalin ✓';
-      setTimeout(()=> btn.textContent = old, 1200);
-      // sinkronkan tombol open
-      const link = document.getElementById('ctaLink');
-      link.href = input.value;
-    }
-  </script>
-</body>
-</html>
