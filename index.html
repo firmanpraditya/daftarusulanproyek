@@ -642,7 +642,7 @@
         const tabContents = document.querySelectorAll('.tab-content');
         const tabNav = document.getElementById('tab-nav');
         const pdfContainer = document.getElementById('pdf-container');
-        const pdfUrl = 'https://docdro.id/W1a54Nq'; // Ganti dengan URL PDF Anda
+        const pdfUrl = 'https://docs.google.com/viewer?url=https://www.gkjw.or.id/wp-content/uploads/2022/10/Juklak-PPJM-GKJW-2023-2045-Tema-Tahun-2023.pdf';
 
         function showTab(tabIndex) {
             tabContents.forEach(content => content.classList.remove('active'));
@@ -659,28 +659,18 @@
             });
 
             if (tabIndex === 7) {
-                renderPdf();
+                renderPdfButton();
             }
         }
 
-        function isMobile() {
-            return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-        }
-
-        function renderPdf() {
-            if (isMobile()) {
-                pdfContainer.innerHTML = `
-                    <div class="pdf-container-mobile">
-                        <h3>Pratinjau PDF tidak tersedia di perangkat seluler.</h3>
-                        <p>Silakan unduh atau buka dokumen untuk melihatnya.</p>
-                        <a href="${pdfUrl}" class="btn-pdf" target="_blank">Lihat Dokumen PPJM</a>
-                    </div>
-                `;
-            } else {
-                pdfContainer.innerHTML = `
-                    <embed src="${pdfUrl}" type="application/pdf" width="100%" height="100%" class="pdf-desktop" />
-                `;
-            }
+        function renderPdfButton() {
+            pdfContainer.innerHTML = `
+                <div class="pdf-container-mobile">
+                    <h3>Dokumen Tema PPJM GKJW 2023-2045</h3>
+                    <p>Silakan klik tombol di bawah untuk melihat dokumen lengkap.</p>
+                    <a href="${pdfUrl}" class="btn-pdf" target="_blank">Lihat Dokumen PPJM</a>
+                </div>
+            `;
         }
 
         function copyCtaUrl() {
@@ -690,10 +680,9 @@
             alert('Tautan formulir berhasil disalin!');
         }
 
-        // Initialize PDF view for the last tab
         document.addEventListener('DOMContentLoaded', () => {
             if (tabContents[7].classList.contains('active')) {
-                renderPdf();
+                renderPdfButton();
             }
         });
     </script>
