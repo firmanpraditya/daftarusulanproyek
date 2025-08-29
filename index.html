@@ -17,7 +17,7 @@
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       height: 100vh;
-      overflow: hidden;
+      /* Remove overflow: hidden; */
     }
     .presentation-container {
       width: 100vw; height: 100vh; background: #fff; display: flex; flex-direction: column; overflow: hidden;
@@ -299,7 +299,7 @@
 </head>
 <body>
   <div class="presentation-container">
-    <div class="tab-navigation">
+    <div class="tab-navigation" id="tab-nav">
       <button class="tab-btn active" onclick="showTab(0)">Pembukaan</button>
       <button class="tab-btn" onclick="showTab(1)">Proses Kerja</button>
       <button class="tab-btn" onclick="showTab(2)">Panduan PKT</button>
@@ -598,3 +598,35 @@ sistem kemasyarakatan era baru
 (tahun tengah-tengah menuju 2045
 Indonesia Maju, 2050 masyarakat
 internasional).
+    </div>
+    <script>
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+        const tabNav = document.getElementById('tab-nav');
+
+        function showTab(tabIndex) {
+            tabContents.forEach(content => content.classList.remove('active'));
+            tabBtns.forEach(btn => btn.classList.remove('active'));
+
+            tabContents[tabIndex].classList.add('active');
+            const activeBtn = tabBtns[tabIndex];
+            activeBtn.classList.add('active');
+
+            // Scroll the active button into view on mobile
+            activeBtn.scrollIntoView({
+                behavior: 'smooth',
+                block: 'nearest',
+                inline: 'center'
+            });
+        }
+
+        function copyCtaUrl() {
+            const ctaUrl = document.getElementById('cta-url');
+            ctaUrl.select();
+            document.execCommand('copy');
+            alert('Tautan formulir berhasil disalin!');
+        }
+    </script>
+  </div>
+</body>
+</html>
