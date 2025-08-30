@@ -170,7 +170,7 @@
     .guideline-card:nth-child(9) { border-left-color: #2980b9; }
 
     .program-grid{ display:grid; grid-template-columns: repeat(auto-fit, minmax(280px,1fr)); gap: 18px; }
-    .program-card{ background:#fff; border-radius: 14px; padding: 18px; box-shadow: 0 8px 20px rgba(0,0,0,.08); border-top: 4px solid; transition: transform .25s, box-shadow .25s; }
+    .program-card{ background:#fff; border-radius: 14px; padding: 18px; box-shadow: 0 8px 20px rgba(0,0,0,.08); border-top: 4:px solid; transition: transform .25s, box-shadow .25s; }
     .program-card:nth-child(odd){ border-top-color:#e74c3c; } .program-card:nth-child(even){ border-top-color:#3498db; }
     .program-card:hover{ transform: translateY(-6px); box-shadow:0 14px 32px rgba(0,0,0,.16); }
     .program-card h3{ color:#2c3e50; margin-bottom: 10px; display:flex; align-items:center; gap: 10px; font-size: 18px; }
@@ -344,15 +344,16 @@
 <body>
   <div class="presentation-container">
     <div class="tab-navigation" id="tab-nav">
-      <button class="tab-btn active" onclick="showTab(0)">Pembukaan</button>
-      <button class="tab-btn" onclick="showTab(1)">Proses Kerja</button>
-      <button class="tab-btn" onclick="showTab(2)">Panduan PKT</button>
-      <button class="tab-btn" onclick="showTab(3)">Program MA</button>
-      <button class="tab-btn" onclick="showTab(4)">Program MD</button>
-      <button class="tab-btn" onclick="showTab(5)">Rembug Warga</button>
-      <button class="tab-btn" onclick="showTab(6)">Call to Action</button>
-      <button class="tab-btn" onclick="showTab(7)">PPJM</button>
+      <button class="tab-btn active" onclick="showTab(0)">1. Pembukaan</button>
+      <button class="tab-btn" onclick="showTab(1)">2. Panduan PKT</button>
+      <button class="tab-btn" onclick="showTab(2)">3. Proses Kerja</button>
+      <button class="tab-btn" onclick="showTab(3)">4. Rembug Warga</button>
+      <button class="tab-btn" onclick="showTab(4)">5. Program MD</button>
+      <button class="tab-btn" onclick="showTab(5)">6. Program MA</button>
+      <button class="tab-btn" onclick="showTab(6)">7. PPJM</button>
+      <button class="tab-btn" onclick="showTab(7)">8. Call to Action</button>
     </div>
+
     <div class="tab-content active">
       <div class="slide-header">
         <h1 class="slide-title">Rapat Koordinasi Penyusunan <br>Daftar Usulan Proyek GKJW Mulyosari tahun 2026</h1>
@@ -385,6 +386,53 @@
         </div>
       </section>
     </div>
+
+    <div class="tab-content">
+      <div class="slide-header"><h2 class="slide-title">Panduan Penyusunan PKT</h2></div>
+      <div class="guidelines-grid">
+        <div class="guideline-card">
+          <h3><i class="fas fa-hashtag"></i> 1. Nomor Proyek</h3>
+          <div class="responsive-text">
+            <p><strong>Pembangunan:</strong> P + Kode Badan + No Urut + Tahun</p>
+            <p><strong>Rutin/Penunjang:</strong> R + Kode Badan + No Urut + Tahun</p>
+            <em>Contoh: PA205-26, RB302-26</em>
+          </div>
+        </div>
+        <div class="guideline-card">
+          <h3><i class="fas fa-file-signature"></i> 2. Nama Proyek</h3>
+          <div class="responsive-text">Singkat, jelas, dan menggambarkan kegiatan. Pembangunan diawali kata kerja: Peningkatan, Pemberdayaan, Optimalisasi, dll.</div>
+        </div>
+        <div class="guideline-card">
+          <h3><i class="fas fa-scroll"></i> 3. Acuan</h3>
+          <div class="responsive-text">Landasan pelaksanaan: PPJP, PPJM MD ST1, PKT BPMA, Keputusan Sidang MD/MA, Keputusan PHMD/Raker BPMD.</div>
+        </div>
+        <div class="guideline-card">
+          <h3><i class="fas fa-bullseye"></i> 4. Tujuan</h3>
+          <div class="responsive-text">Pernyataan kualitatif pencapaian yang diinginkan. Menggunakan kata kerja, relevan dengan indikator ketercapaian.</div>
+        </div>
+        <div class="guideline-card">
+          <h3><i class="fas fa-users"></i> 5. Sasaran Kuantitas</h3>
+          <div class="responsive-text">Personil sasaran aktivitas. Ditulis detail, dapat dihitung/diukur untuk memudahkan penyusunan anggaran.</div>
+        </div>
+        <div class="guideline-card">
+          <h3><i class="fas fa-calendar-check"></i> 6. Bentuk Kegiatan</h3>
+          <div class="responsive-text">Workshop, seminar, pelatihan, monitoring, sosialisasi, dll. Tulis lengkap untuk memudahkan pelaksanaan.</div>
+        </div>
+        <div class="guideline-card">
+          <h3><i class="fas fa-map-marked-alt"></i> 7. Waktu & Tempat</h3>
+          <div class="responsive-text">Waktu: Hari, tanggal, bulan, tahun (minimal bulan & tahun)<br>Tempat: Lokasi lengkap untuk memudahkan penjadwalan.</div>
+        </div>
+        <div class="guideline-card">
+          <h3><i class="fas fa-money-bill-wave"></i> 8. Biaya</h3>
+          <div class="responsive-text">Rinci komponen biaya (konsumsi, transport, dll). Sumber: Dana A (Kas MD), B (Krakalan), C (Donatur/Bantuan).</div>
+        </div>
+        <div class="guideline-card">
+          <h3><i class="fas fa-chart-line"></i> 9. Indikator Keberhasilan</h3>
+          <div class="responsive-text">Memenuhi kriteria SMART: Spesific, Measureable, Achievable, Relevant, Time-bound.</div>
+        </div>
+      </div>
+    </div>
+
     <div class="tab-content">
       <div class="slide-header">
         <h2 class="slide-title">Proses Kerja Penyusunan PKT</h2>
@@ -458,73 +506,7 @@
         <div class="responsive-text"><strong>2. Pendekatan Terintegrasi:</strong> Hasil penelitian menunjukkan warga jemaat mengapresiasi kegiatan pelayanan yang melibatkan seluruh keluarga. Susun program pembangunan yang menggabungkan pelayanan untuk anak, remaja, pemuda, wanita, dan warga Adi Yuswa (lansia).</div>
       </div>
     </div>
-    <div class="tab-content">
-      <div class="slide-header"><h2 class="slide-title">Panduan Penyusunan PKT</h2></div>
-      <div class="guidelines-grid">
-        <div class="guideline-card">
-          <h3><i class="fas fa-hashtag"></i> 1. Nomor Proyek</h3>
-          <div class="responsive-text">
-            <p><strong>Pembangunan:</strong> P + Kode Badan + No Urut + Tahun</p>
-            <p><strong>Rutin/Penunjang:</strong> R + Kode Badan + No Urut + Tahun</p>
-            <em>Contoh: PA205-26, RB302-26</em>
-          </div>
-        </div>
-        <div class="guideline-card">
-          <h3><i class="fas fa-file-signature"></i> 2. Nama Proyek</h3>
-          <div class="responsive-text">Singkat, jelas, dan menggambarkan kegiatan. Pembangunan diawali kata kerja: Peningkatan, Pemberdayaan, Optimalisasi, dll.</div>
-        </div>
-        <div class="guideline-card">
-          <h3><i class="fas fa-scroll"></i> 3. Acuan</h3>
-          <div class="responsive-text">Landasan pelaksanaan: PPJP, PPJM MD ST1, PKT BPMA, Keputusan Sidang MD/MA, Keputusan PHMD/Raker BPMD.</div>
-        </div>
-        <div class="guideline-card">
-          <h3><i class="fas fa-bullseye"></i> 4. Tujuan</h3>
-          <div class="responsive-text">Pernyataan kualitatif pencapaian yang diinginkan. Menggunakan kata kerja, relevan dengan indikator ketercapaian.</div>
-        </div>
-        <div class="guideline-card">
-          <h3><i class="fas fa-users"></i> 5. Sasaran Kuantitas</h3>
-          <div class="responsive-text">Personil sasaran aktivitas. Ditulis detail, dapat dihitung/diukur untuk memudahkan penyusunan anggaran.</div>
-        </div>
-        <div class="guideline-card">
-          <h3><i class="fas fa-calendar-check"></i> 6. Bentuk Kegiatan</h3>
-          <div class="responsive-text">Workshop, seminar, pelatihan, monitoring, sosialisasi, dll. Tulis lengkap untuk memudahkan pelaksanaan.</div>
-        </div>
-        <div class="guideline-card">
-          <h3><i class="fas fa-map-marked-alt"></i> 7. Waktu & Tempat</h3>
-          <div class="responsive-text">Waktu: Hari, tanggal, bulan, tahun (minimal bulan & tahun)<br>Tempat: Lokasi lengkap untuk memudahkan penjadwalan.</div>
-        </div>
-        <div class="guideline-card">
-          <h3><i class="fas fa-money-bill-wave"></i> 8. Biaya</h3>
-          <div class="responsive-text">Rinci komponen biaya (konsumsi, transport, dll). Sumber: Dana A (Kas MD), B (Krakalan), C (Donatur/Bantuan).</div>
-        </div>
-        <div class="guideline-card">
-          <h3><i class="fas fa-chart-line"></i> 9. Indikator Keberhasilan</h3>
-          <div class="responsive-text">Memenuhi kriteria SMART: Spesific, Measureable, Achievable, Relevant, Time-bound.</div>
-        </div>
-      </div>
-    </div>
-    <div class="tab-content">
-      <div class="slide-header">
-        <h2 class="slide-title">Program Pembangunan Majelis Agung</h2>
-      </div>
-      <div class="program-grid" style="text-align: center;">
-        <div class="program-card" style="border-top-color: #f39c12; flex-basis: 100%;">
-          <h3><i class="fas fa-tasks"></i> Pemilihan Program Prioritas</h3>
-          <p class="responsive-text" style="color:#555;">Daftar program ini akan dipilah lebih lanjut oleh **PHMJ, Komperlitbang, dan KP2** untuk menentukan mana yang paling mendesak dan relevan untuk dilaksanakan di GKJW Mulyosari.</p>
-        </div>
-      </div>
-    </div>
-    <div class="tab-content">
-      <div class="slide-header">
-        <h2 class="slide-title">Program Pembangunan Majelis Daerah</h2>
-      </div>
-      <div class="program-grid" style="text-align: center;">
-        <div class="program-card" style="border-top-color: #3498db; flex-basis: 100%;">
-          <h3><i class="fas fa-spinner fa-pulse"></i> Data Belum Tersedia</h3>
-          <p class="responsive-text" style="color:#555;">Akan diupdate setelah sidang Majelis Daerah September 2025.</p>
-        </div>
-      </div>
-    </div>
+    
     <div class="tab-content">
       <div class="slide-header"><h2 class="slide-title">Hasil Rembug Warga GKJW Mulyosari</h2></div>
       <div class="rembug-grid">
@@ -607,6 +589,55 @@
         </div>
       </div>
     </div>
+    
+    <div class="tab-content">
+      <div class="slide-header">
+        <h2 class="slide-title">Program Pembangunan Majelis Daerah</h2>
+      </div>
+      <div class="program-grid" style="text-align: center;">
+        <div class="program-card" style="border-top-color: #3498db; flex-basis: 100%;">
+          <h3><i class="fas fa-spinner fa-pulse"></i> Data Belum Tersedia</h3>
+          <p class="responsive-text" style="color:#555;">Akan diupdate setelah sidang Majelis Daerah September 2025.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="tab-content">
+      <div class="slide-header">
+        <h2 class="slide-title">Program Pembangunan Majelis Agung</h2>
+      </div>
+      <div class="program-grid" style="text-align: center;">
+        <div class="program-card" style="border-top-color: #f39c12; flex-basis: 100%;">
+          <h3><i class="fas fa-tasks"></i> Pemilihan Program Prioritas</h3>
+          <p class="responsive-text" style="color:#555;">Daftar program ini akan dipilah lebih lanjut oleh **PHMJ, Komperlitbang, dan KP2** untuk menentukan mana yang paling mendesak dan relevan untuk dilaksanakan di GKJW Mulyosari.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="tab-content">
+      <div class="slide-header" style="padding: 36px 36px 0;">
+        <h2 class="slide-title">Tema PPJM GKJW 2026: <br>Tahun Ekologi dan Kependudukan</h2>
+        <p class="slide-subtitle" style="text-align: left; margin-top: 20px;">
+          Tahun ini adalah tahun penguatan kesadaran ekologi dan kependudukan. Diprediksi pada tahun ini jumlah penduduk dunia bertambah 1
+          miliar dari 12 tahun sebelumnya serta
+          persiapan yang lebih matang menuju
+          sistem kemasyarakatan era baru
+          (tahun tengah-tengah menuju 2045
+          Indonesia Maju, 2050 masyarakat
+          internasional).
+          <br><br>
+          Disadari bahwa perubahan sistem
+          kependudukan akan berpengaruh
+          besar pada kondisi ekologi. Karena itu
+          tahun kependudukan juga perlu
+          diimbangi dengan kesadaran ekologis
+          yang muncul sebagai akibatnya.
+        </p>
+      </div>
+      <div class="pdf-container" id="pdf-container">
+        </div>
+    </div>
+
     <div class="tab-content">
       <div class="slide-header"><h2 class="slide-title">Call to Action</h2><p class="slide-subtitle">Masukkan usulan proyek Anda sekarang</p></div>
       <section class="cta-section">
@@ -630,19 +661,13 @@
         </div>
       </section>
     </div>
-    <div class="tab-content">
-      <div class="slide-header" style="padding: 36px 36px 0;">
-        <h2 class="slide-title">Tema PPJM GKJW 2026</h2>
-      </div>
-      <div class="pdf-container" id="pdf-container">
-        </div>
-    </div>
+    
     <script>
         const tabBtns = document.querySelectorAll('.tab-btn');
         const tabContents = document.querySelectorAll('.tab-content');
         const tabNav = document.getElementById('tab-nav');
         const pdfContainer = document.getElementById('pdf-container');
-        const pdfUrl = 'https://drive.google.com/file/d/1Gwp_1IKxUOUiP54SwxlOjj98QxiSEwDQ/preview';
+        const pdfUrl = 'https://drive.google.com/file/d/1Gwp_1IKxUOUiP54SwxlOjj98QxiSEwDQ/view?usp=sharing';
 
         function showTab(tabIndex) {
             tabContents.forEach(content => content.classList.remove('active'));
@@ -658,7 +683,7 @@
                 inline: 'center'
             });
 
-            if (tabIndex === 7) {
+            if (tabIndex === 6) {
                 renderPdfButton();
             }
         }
@@ -666,7 +691,7 @@
         function renderPdfButton() {
             pdfContainer.innerHTML = `
                 <div class="pdf-container-mobile">
-                    <h3>Dokumen Tema PPJM GKJW 2023-2045</h3>
+                    <h3>Dokumen Tema PPJM GKJW 2026</h3>
                     <p>Silakan klik tombol di bawah untuk melihat dokumen lengkap.</p>
                     <a href="${pdfUrl}" class="btn-pdf" target="_blank">Lihat Dokumen PPJM</a>
                 </div>
@@ -681,8 +706,8 @@
         }
 
         document.addEventListener('DOMContentLoaded', () => {
-            if (tabContents[7].classList.contains('active')) {
-                renderPdfButton();
+            if (tabContents[0].classList.contains('active')) {
+              // no action needed for the first tab
             }
         });
     </script>
